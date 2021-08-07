@@ -50,7 +50,7 @@ public class Crud {
 
     //READ
 
-        //for get all product
+        //get all product
         public static ArrayList<Product> read(){
 
             ArrayList<Product> products = new ArrayList<>();
@@ -82,7 +82,7 @@ public class Crud {
             }
             return products;
         }
-        //for get product according to filter
+        //get product according to filter
         public static ArrayList<Product> consult(String sql){
             ArrayList<Product> products = new ArrayList<>();
 

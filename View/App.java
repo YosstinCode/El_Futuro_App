@@ -6,7 +6,7 @@ import model.DataBase;
 import model.models.Product;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -68,7 +68,7 @@ public class App extends JFrame {
     private JPanel buttonConsultarPanel;
     private JButton consultarButton;
     private JButton actualizarButton;
-    private JButton elminarButton;
+    private JButton deleteButton;
     private JButton registrarButton;
     private JComboBox categoriaComboBoxConsultar;
     private JPanel spacer;
@@ -373,7 +373,7 @@ public class App extends JFrame {
         });
     }
     private void clickButtonDelete(){
-        elminarButton.addMouseListener(new MouseAdapter() {
+        deleteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //get row from table
@@ -418,9 +418,17 @@ public class App extends JFrame {
         //add Cursor pointer or cursor hand in components
         itemRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         itemConsultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //panel section
         closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         minimizedButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //register section
         registrarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //consult section
+        consultarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        actualizarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        editButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        deleteButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
     }
     private void effectPLaceHolderRegistrar(){
         nombreInputRegistrar.addMouseListener(new MouseAdapter() {
@@ -508,6 +516,33 @@ public class App extends JFrame {
             }
         });
     }
+    private void styleTable(){
+
+        DefaultTableCellRenderer editColumn = new DefaultTableCellRenderer();
+
+        //set aling center in editor column
+        editColumn.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //get columns
+        TableColumn id = table.getColumnModel().getColumn(0);
+        TableColumn nombre =table.getColumnModel().getColumn(1);
+        TableColumn categoria=table.getColumnModel().getColumn(2);
+        TableColumn cantidad=table.getColumnModel().getColumn(3);
+        TableColumn precio=table.getColumnModel().getColumn(4);
+
+        //set size column
+        id.setPreferredWidth(20);
+        nombre.setPreferredWidth(150);
+        categoria.setPreferredWidth(80);
+        cantidad.setPreferredWidth(80);
+        //set aling column
+        id.setCellRenderer(editColumn);
+        categoria.setCellRenderer(editColumn);
+        cantidad.setCellRenderer(editColumn);
+        precio.setCellRenderer(editColumn);
+
+
+    }
     //methods table
     private void insertDataInTable(){
         //insert columns in table
@@ -528,6 +563,7 @@ public class App extends JFrame {
 
         //insert data in table
         table.setModel(modelData);
+        styleTable();
     }
     private void removeDataInTable(){
         //remove data in table
